@@ -1,0 +1,16 @@
+ARG BASE_IMAGE="debian:trixie-20250811-slim"
+
+FROM $BASE_IMAGE
+
+RUN export DEBIAN_FRONTEND=noninteractive && apt-get update -y && apt-get upgrade -y && \
+  apt-get install -y --no-install-recommends bash curl gnupg2 unzip jq ca-certificates less tmux htop iotop postgresql-client-17
+
+RUN machine=$(uname -m) && \
+  curl -L -o "/tmp/awscliv2.zip" "https://awscli.amazonaws.com/awscli-exe-linux-${machine}.zip" && \
+  unzip -d /tmp /tmp/awscliv2.zip && \
+  /tmp/aws/install && \
+  rm -rf /tmp/*
+
+WORKDIR "/"
+
+ENTRYPOINT [ "/bin/bash" ]
