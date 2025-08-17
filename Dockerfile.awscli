@@ -10,7 +10,3 @@ RUN machine=$(uname -m) && \
   unzip -d /tmp /tmp/awscliv2.zip && \
   /tmp/aws/install && \
   rm -rf /tmp/*
-
-WORKDIR "/"
-
-ENTRYPOINT [ "/bin/bash" ]
